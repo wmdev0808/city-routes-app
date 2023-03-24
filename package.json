@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@blueprintjs/core": "^4.17.7",
+    "@blueprintjs/icons": "^4.14.4",
     "@blueprintjs/popover2": "^1.13.11",
     "@blueprintjs/select": "^4.9.11",
     "react": "^18.2.0",
