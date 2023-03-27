@@ -12,7 +12,8 @@ import { City, fetchCities } from "../../api/cities";
 import Skeleton from "../Skeleton";
 
 export interface CitySelectProps {
-  onItemSelect?: (item: City) => void;
+  onChange?: (item: City | null) => void;
+  value: City | null;
 }
 
 function CitySelect(props: CitySelectProps) {
@@ -20,7 +21,7 @@ function CitySelect(props: CitySelectProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [items, setItems] = useState<City[]>([]);
   const [query, setQuery] = useState("");
-  const [selectedItem, setSelectedItem] = useState<City | null>();
+  const [selectedItem, setSelectedItem] = useState<City | null>(props.value);
 
   function getCityItemProps(
     city: City,
@@ -108,6 +109,10 @@ function CitySelect(props: CitySelectProps) {
     } else {
       setIsLoading(false);
       setIsOpen(false);
+
+      if (props.onChange) {
+        props.onChange(selectedItem);
+      }
     }
   }
 
@@ -116,8 +121,8 @@ function CitySelect(props: CitySelectProps) {
     setQuery(item.name);
     setIsOpen(false);
 
-    if (props.onItemSelect) {
-      props.onItemSelect(item);
+    if (props.onChange) {
+      props.onChange(item);
     }
   }
 
@@ -134,6 +139,7 @@ function CitySelect(props: CitySelectProps) {
 
   return (
     <Suggest2<City>
+      fill
       inputProps={{
         onBlur: dismissPopover,
         onKeyDown: handleKeyDown,
