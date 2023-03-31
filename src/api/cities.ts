@@ -52,7 +52,7 @@ export async function fetchCities(query: string = ""): Promise<City[]> {
   const normalizedQuery = query.toLowerCase();
   await sleep(1000);
   if (normalizedQuery === "fail") {
-    throw new Error("API response failed!");
+    throw new Error("Oops! Failed to search with this keyword.");
   }
 
   return CITIES.filter(

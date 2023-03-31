@@ -4,6 +4,7 @@ import styled from "styled-components";
 import {
   Controller,
   FieldError,
+  FieldPath,
   useFieldArray,
   useFormContext,
 } from "react-hook-form";
@@ -81,18 +82,12 @@ function RemoveDestinationButton({
 
 function CitySelectList() {
   const {
+    clearErrors,
     control,
     formState: { errors },
+    setError,
   } = useFormContext<CityFormInputs>();
   const { fields, append, remove } = useFieldArray({ control, name: "cities" });
-
-  function handleAddCityField() {
-    append({} as City);
-  }
-
-  function handleRemoveCityField(index: number) {
-    return () => remove(index);
-  }
 
   const errorTexts = useMemo(() => {
     if (errors.cities) {
@@ -105,12 +100,33 @@ function CitySelectList() {
             }
             return "You must choose the city of destination";
           }
+          if (cityError.type === "apiError") {
+            return cityError.message;
+          }
         }
       );
     }
 
     return fields.map(() => undefined);
   }, [JSON.stringify(errors.cities)]);
+
+  function handleFieldApiError(field: FieldPath<CityFormInputs>) {
+    return (error: Error) => {
+      setError(field, { type: "apiError", message: error.message });
+    };
+  }
+
+  function handleClearFieldError(field: FieldPath<CityFormInputs>) {
+    return () => clearErrors(field);
+  }
+
+  function handleAddCityField() {
+    append({} as City);
+  }
+
+  function handleRemoveCityField(index: number) {
+    return () => remove(index);
+  }
 
   return (
     <CitySelectListContainer>
@@ -137,6 +153,8 @@ function CitySelectList() {
                   <CitySelect
                     intent={intent}
                     onChange={onChange}
+                    onClearError={handleClearFieldError(`cities.${index}`)}
+                    onError={handleFieldApiError(`cities.${index}`)}
                     value={value}
                   />
                 )}

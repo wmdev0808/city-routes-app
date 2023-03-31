@@ -78,12 +78,7 @@ function CityForm(props: CityFormProps) {
   }, []);
 
   const onSubmit: SubmitHandler<CityFormInputs> = (data) => {
-    if (methods.formState.isValid) {
-      setVal(data);
-    }
-    console.log("data: ", data);
-    console.log("formState.isValid:", methods.formState.isValid);
-    console.log("formState.errors:", methods.formState.errors);
+    setVal(data);
   };
 
   return (

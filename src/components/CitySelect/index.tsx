@@ -14,6 +14,8 @@ import Skeleton from "../Skeleton";
 export interface CitySelectProps {
   intent?: Intent;
   onChange: (item: City | null) => void;
+  onClearError?: () => void;
+  onError?: (error: Error) => void;
   value: City | null;
 }
 
@@ -96,15 +98,27 @@ function CitySelect(props: CitySelectProps) {
     query: string,
     event?: React.ChangeEvent<HTMLInputElement>
   ) {
+    if (props.onClearError) {
+      props.onClearError();
+    }
+
     setQuery(query);
 
     if (query) {
       if (!props.value || props.value.name !== query) {
         setIsLoading(true);
         setIsOpen(true);
-        const cities = await fetchCities(query);
+        try {
+          const cities = await fetchCities(query);
+          setItems(cities);
+        } catch (error) {
+          setIsOpen(false);
+          if (props.onError) {
+            props.onError(error as Error);
+          }
+        }
+
         setIsLoading(false);
-        setItems(cities);
       }
     } else {
       setIsLoading(false);
@@ -141,6 +155,8 @@ function CitySelect(props: CitySelectProps) {
         onBlur: dismissPopover,
         onKeyDown: handleKeyDown,
         rightElement: renderInputGroupRight(),
+        style:
+          props.intent === Intent.DANGER ? { color: "#cd4246" } : undefined,
       }}
       inputValueRenderer={renderInputValue}
       items={items}
