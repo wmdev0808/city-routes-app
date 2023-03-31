@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
 
-import { Button, Menu } from "@blueprintjs/core";
-import { MenuItem2, MenuItem2Props } from "@blueprintjs/popover2";
+import { Button, Intent, Menu } from "@blueprintjs/core";
+import { Classes, MenuItem2, MenuItem2Props } from "@blueprintjs/popover2";
 import {
   ItemListRendererProps,
   ItemRendererProps,
@@ -12,7 +12,8 @@ import { City, fetchCities } from "../../api/cities";
 import Skeleton from "../Skeleton";
 
 export interface CitySelectProps {
-  onChange?: (item: City | null) => void;
+  intent?: Intent;
+  onChange: (item: City | null) => void;
   value: City | null;
 }
 
@@ -21,7 +22,6 @@ function CitySelect(props: CitySelectProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [items, setItems] = useState<City[]>([]);
   const [query, setQuery] = useState("");
-  const [selectedItem, setSelectedItem] = useState<City | null>(props.value);
 
   function getCityItemProps(
     city: City,
@@ -48,10 +48,10 @@ function CitySelect(props: CitySelectProps) {
   }
 
   const renderInputGroupRight = useCallback(() => {
-    return query ? (
+    return props.value && props.value.name ? (
       <Button icon="cross" minimal onClick={clearQuery} />
     ) : undefined;
-  }, [query]);
+  }, [props.value]);
 
   function renderCityList(listProps: ItemListRendererProps<City>) {
     if (isLoading) {
@@ -89,7 +89,7 @@ function CitySelect(props: CitySelectProps) {
 
   function clearQuery() {
     setQuery("");
-    setSelectedItem(null);
+    props.onChange(null);
   }
 
   async function handleQueryChange(
@@ -99,7 +99,7 @@ function CitySelect(props: CitySelectProps) {
     setQuery(query);
 
     if (query) {
-      if (!selectedItem || selectedItem.name !== query) {
+      if (!props.value || props.value.name !== query) {
         setIsLoading(true);
         setIsOpen(true);
         const cities = await fetchCities(query);
@@ -109,16 +109,10 @@ function CitySelect(props: CitySelectProps) {
     } else {
       setIsLoading(false);
       setIsOpen(false);
-
-      if (props.onChange) {
-        props.onChange(selectedItem);
-      }
     }
   }
 
   function handleItemSelect(item: City) {
-    setSelectedItem(item);
-    setQuery(item.name);
     setIsOpen(false);
 
     if (props.onChange) {
@@ -134,13 +128,16 @@ function CitySelect(props: CitySelectProps) {
   }
 
   function dismissPopover(event: React.FocusEvent<HTMLInputElement>) {
-    setIsOpen(false);
+    if (!event.relatedTarget?.className.includes(Classes.POPOVER2_DISMISS)) {
+      setIsOpen(false);
+    }
   }
 
   return (
     <Suggest2<City>
       fill
       inputProps={{
+        intent: props.intent,
         onBlur: dismissPopover,
         onKeyDown: handleKeyDown,
         rightElement: renderInputGroupRight(),
@@ -157,7 +154,7 @@ function CitySelect(props: CitySelectProps) {
         minimal: false,
       }}
       query={query}
-      selectedItem={selectedItem}
+      selectedItem={props.value}
     />
   );
 }
