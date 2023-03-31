@@ -64,12 +64,6 @@ function CityForm(props: CityFormProps) {
     },
   });
 
-  const [val, setVal] = useState<CityFormInputs>({
-    cities: [],
-    passengers: 1,
-    date: format(new Date(), "yyyy-MM-dd"),
-  });
-
   useEffect(() => {
     async function startValidation() {
       await methods.trigger();
@@ -78,7 +72,7 @@ function CityForm(props: CityFormProps) {
   }, []);
 
   const onSubmit: SubmitHandler<CityFormInputs> = (data) => {
-    setVal(data);
+    console.log(data);
   };
 
   return (
@@ -125,21 +119,14 @@ function CityForm(props: CityFormProps) {
             </CityFormRight>
           </div>
 
-          <Button className="btn-submit" text="Submit" type="submit" />
+          <Button
+            className="btn-submit"
+            disabled={!methods.formState.isValid}
+            text="Submit"
+            type="submit"
+          />
         </form>
       </CityFormContainer>
-      <div>
-        <h2>data:</h2>
-        <pre>{JSON.stringify(val, null, 2)}</pre>
-      </div>
-      <div>
-        <h2>formState.errors:</h2>
-        <pre>{JSON.stringify(methods.formState.errors, null, 2)}</pre>
-      </div>
-      <div>
-        <h2>formState.isValid:</h2>
-        <pre>{JSON.stringify(methods.formState.isValid, null, 2)}</pre>
-      </div>
     </FormProvider>
   );
 }
