@@ -15,6 +15,7 @@ import { City } from "../../api/cities";
 import CitySelectList from "../CitySelectList";
 import DateInput from "../DateInput";
 import IntegerInput from "../IntegerInput";
+import useCitySearchParams from "../../hooks/useCitySearchParams";
 
 const CityFormContainer = styled.div`
   display: flex;
@@ -55,7 +56,6 @@ interface CityFormProps {
   cities?: (City | null)[];
   passengers?: string;
   date?: string;
-  searchParamsUpdater?: (input: CityFormInputs) => void;
 }
 
 function CityForm(props: CityFormProps) {
@@ -69,12 +69,11 @@ function CityForm(props: CityFormProps) {
   });
   const formValues = useWatch({ control: methods.control });
   const [searchParams] = useSearchParams();
+  const [, setCitySearchParams] = useCitySearchParams();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (props.searchParamsUpdater) {
-      props.searchParamsUpdater(formValues as CityFormInputs);
-    }
+    setCitySearchParams(formValues as CityFormInputs);
   }, [formValues]);
 
   useEffect(() => {
