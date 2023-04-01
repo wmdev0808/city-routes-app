@@ -116,10 +116,6 @@ function CitySelectList() {
     };
   }
 
-  function handleClearFieldError(field: FieldPath<CityFormInputs>) {
-    return () => clearErrors(field);
-  }
-
   function handleAddCityField() {
     append({} as City);
   }
@@ -153,7 +149,6 @@ function CitySelectList() {
                   <CitySelect
                     intent={intent}
                     onChange={onChange}
-                    onClearError={handleClearFieldError(`cities.${index}`)}
                     onError={handleFieldApiError(`cities.${index}`)}
                     value={value}
                   />

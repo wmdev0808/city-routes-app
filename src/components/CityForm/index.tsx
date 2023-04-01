@@ -1,10 +1,12 @@
 import { Button, Classes } from "@blueprintjs/core";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import {
   Controller,
   FormProvider,
   SubmitHandler,
   useForm,
+  useWatch,
 } from "react-hook-form";
 import styled from "styled-components";
 import { format } from "date-fns";
@@ -45,24 +47,35 @@ const CityFormRight = styled.div`
 
 export interface CityFormInputs {
   cities: (City | null)[];
-  passengers: number | string;
+  passengers: string;
   date: string;
 }
 
 interface CityFormProps {
   cities?: (City | null)[];
-  passengers?: number | string;
+  passengers?: string;
   date?: string;
+  searchParamsUpdater?: (input: CityFormInputs) => void;
 }
 
 function CityForm(props: CityFormProps) {
   const methods = useForm<CityFormInputs>({
     defaultValues: {
       cities: props.cities || [{}, {}],
-      passengers: props.passengers || 1,
+      passengers: props.passengers || "1",
       date: props.date || format(new Date(), "yyyy-MM-dd"),
     },
+    mode: "onChange",
   });
+  const formValues = useWatch({ control: methods.control });
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (props.searchParamsUpdater) {
+      props.searchParamsUpdater(formValues as CityFormInputs);
+    }
+  }, [formValues]);
 
   useEffect(() => {
     async function startValidation() {
@@ -73,6 +86,7 @@ function CityForm(props: CityFormProps) {
 
   const onSubmit: SubmitHandler<CityFormInputs> = (data) => {
     console.log(data);
+    navigate(`/search-results?${searchParams.toString()}`);
   };
 
   return (

@@ -1,14 +1,12 @@
-import { NumericInput } from "@blueprintjs/core";
-import { useState } from "react";
-import { City } from "../api/cities";
 import CityForm from "../components/CityForm";
-import CitySelect from "../components/CitySelect";
-import CitySelectList from "../components/CitySelectList";
-import DateInput from "../components/DateInput";
-import IntegerInput from "../components/IntegerInput";
+import useCitySearchParams from "../hooks/useCitySearchParams";
 
 function HomePage() {
-  return <CityForm />;
+  const [citySearchParams, setCitySearchParams] = useCitySearchParams();
+
+  return (
+    <CityForm {...citySearchParams} searchParamsUpdater={setCitySearchParams} />
+  );
 }
 
 export default HomePage;
