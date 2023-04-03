@@ -28,12 +28,21 @@ const CityFormContainer = styled.div`
     .city-form-fields {
       display: flex;
       flex: 1;
+      flex-direction: column;
       .${Classes.FORM_HELPER_TEXT} {
         text-align: left;
+      }
+      @media (min-width: 768px) {
+        flex-direction: row;
       }
     }
     .btn-submit {
       margin-top: 2rem;
+      width: 100%;
+
+      @media (min-width: 768px) {
+        width: auto;
+      }
     }
   }
 `;
@@ -43,7 +52,27 @@ const CityFormLeft = styled.div`
 `;
 
 const CityFormRight = styled.div`
+  display: flex;
   flex: 1;
+  margin-top: 2rem;
+
+  > div:first-of-type {
+    padding-right: 1rem;
+  }
+
+  > div:last-of-type {
+    padding-left: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    display: block;
+    margin-top: 0;
+
+    & > div:first-of-type,
+    & > div:last-of-type {
+      padding: 0;
+    }
+  }
 `;
 
 export interface CityFormInputs {
