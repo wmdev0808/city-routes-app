@@ -55,19 +55,15 @@ const CityFormRight = styled.div`
   display: flex;
   flex: 1;
   margin-top: 2rem;
-
   > div:first-of-type {
     padding-right: 1rem;
   }
-
   > div:last-of-type {
     padding-left: 1rem;
   }
-
   @media (min-width: 768px) {
     display: block;
     margin-top: 0;
-
     & > div:first-of-type,
     & > div:last-of-type {
       padding: 0;
