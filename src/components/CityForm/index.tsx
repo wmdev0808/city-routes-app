@@ -84,7 +84,7 @@ function CityForm(props: CityFormProps) {
   }, []);
 
   const onSubmit: SubmitHandler<CityFormInputs> = (data) => {
-    console.log(data);
+    console.log("form data: ", data);
     navigate(`/search-results?${searchParams.toString()}`);
   };
 
