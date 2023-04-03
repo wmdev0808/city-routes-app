@@ -1,3 +1,4 @@
+import haversine from "haversine-distance";
 import { sleep } from "../utils/sleep";
 
 export interface City {
@@ -58,4 +59,31 @@ export async function fetchCities(query: string = ""): Promise<City[]> {
   return CITIES.filter(
     (city) => city.name.toLowerCase().indexOf(normalizedQuery) >= 0
   );
+}
+
+export interface Distance {
+  origin: City;
+  destination: City;
+  distance: number;
+}
+
+export async function calculateHaversineDistance(cities: City[]) {
+  await sleep(1000);
+
+  const results: Distance[] = [];
+  const numberOfCities = cities.length;
+
+  for (let i = 0; i < numberOfCities - 1; i++) {
+    for (let j = i + 1; j < numberOfCities; j++) {
+      const cityDistance: Distance = {
+        origin: cities[i],
+        destination: cities[j],
+        distance: haversine(cities[i], cities[j]),
+      };
+
+      results.push(cityDistance);
+    }
+  }
+
+  return results;
 }
