@@ -73,16 +73,26 @@ export async function calculateHaversineDistance(cities: City[]) {
   const results: Distance[] = [];
   const numberOfCities = cities.length;
 
-  for (let i = 0; i < numberOfCities - 1; i++) {
-    for (let j = i + 1; j < numberOfCities; j++) {
-      const cityDistance: Distance = {
-        origin: cities[i],
-        destination: cities[j],
-        distance: haversine(cities[i], cities[j]),
-      };
+  /**
+   * Input validation
+   */
+  // Length should be greater than 1
+  if (numberOfCities < 2) return [];
+  // Check if cities include "Dijon" city name
+  const invalidInput = cities.find((city) => city.name === "Dijon");
 
-      results.push(cityDistance);
-    }
+  if (invalidInput) throw new Error("Oops! Something went wrong!");
+
+  for (let i = 0; i < numberOfCities - 1; i++) {
+    const cityDistance: Distance = {
+      origin: cities[i],
+      destination: cities[i + 1],
+      distance: parseFloat(
+        (haversine(cities[i], cities[i + 1]) / 1000).toFixed(2)
+      ),
+    };
+
+    results.push(cityDistance);
   }
 
   return results;

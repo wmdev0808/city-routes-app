@@ -47,13 +47,13 @@ const CityFormRight = styled.div`
 `;
 
 export interface CityFormInputs {
-  cities: (City | null)[];
+  cities: City[];
   passengers: string;
   date: string;
 }
 
 interface CityFormProps {
-  cities?: (City | null)[];
+  cities?: City[];
   passengers?: string;
   date?: string;
 }
@@ -83,8 +83,7 @@ function CityForm(props: CityFormProps) {
     startValidation();
   }, []);
 
-  const onSubmit: SubmitHandler<CityFormInputs> = (data) => {
-    console.log("form data: ", data);
+  const onSubmit: SubmitHandler<CityFormInputs> = () => {
     navigate(`/search-results?${searchParams.toString()}`);
   };
 

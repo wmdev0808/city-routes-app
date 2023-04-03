@@ -134,6 +134,10 @@ function CitySelect(props: CitySelectProps) {
     if (event.key === "Escape") {
       setIsOpen(false);
     }
+    if (event.key === "Enter") {
+      event.preventDefault();
+      setIsOpen(false);
+    }
   }
 
   function dismissPopover(event: React.FocusEvent<HTMLInputElement>) {
