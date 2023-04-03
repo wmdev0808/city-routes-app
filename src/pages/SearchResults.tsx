@@ -18,6 +18,11 @@ const ContentRows = styled.div`
   flex: 1;
   flex-direction: column;
   margin: 2rem 0;
+  &.error-container {
+    > div {
+      margin: 2rem;
+    }
+  }
 `;
 
 const ContentRow = styled.div`
@@ -71,7 +76,17 @@ function SearchResultsPage() {
 
   function renderSearchResults() {
     if (isLoading) return <Spinner />;
-    if (error) return <div>{error.message}</div>;
+    if (error)
+      return (
+        <div>
+          <ContentRows className="error-container">
+            <ContentRow>{error.message}</ContentRow>
+            <ContentRow>
+              <Button text="Back" onClick={handleClick} />
+            </ContentRow>
+          </ContentRows>
+        </div>
+      );
     return (
       <ContentRows>
         {distances.map((distance, index) => (
