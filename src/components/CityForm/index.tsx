@@ -39,7 +39,6 @@ const CityFormContainer = styled.div`
     .btn-submit {
       margin-top: 2rem;
       width: 100%;
-
       @media (min-width: 768px) {
         width: auto;
       }
