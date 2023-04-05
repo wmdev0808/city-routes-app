@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Button, Spinner } from "@blueprintjs/core";
-import { format, parse } from "date-fns";
+import { format } from "date-fns";
 
 import { calculateHaversineDistance, Distance } from "../api/cities";
 import DistanceIndicatorItem from "../components/DistanceIndicatorItem";
 import useCitySearchParams from "../hooks/useCitySearchParams";
+import PageContainer from "../components/UI/PageContainer";
 
 const SearchResultsContainer = styled.div`
   display: flex;
@@ -78,17 +79,17 @@ function SearchResultsPage() {
     if (isLoading) return <Spinner />;
     if (error)
       return (
-        <div>
+        <PageContainer>
           <ContentRows className="error-container">
             <ContentRow>{error.message}</ContentRow>
             <ContentRow>
               <Button text="Back" onClick={handleClick} />
             </ContentRow>
           </ContentRows>
-        </div>
+        </PageContainer>
       );
     return (
-      <ContentRows>
+      <PageContainer>
         {distances.map((distance, index) => (
           <DistanceIndicatorItem
             isFirst={index === 0}
@@ -116,7 +117,7 @@ function SearchResultsPage() {
         <ContentRow>
           <Button text="Back" onClick={handleClick} />
         </ContentRow>
-      </ContentRows>
+      </PageContainer>
     );
   }
 
