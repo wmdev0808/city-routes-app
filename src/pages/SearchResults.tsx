@@ -30,6 +30,7 @@ const ContentRow = styled.div`
   display: flex;
   flex: 1;
   justify-content: center;
+  line-height: 2rem;
 `;
 
 const HighlightedText = styled.span`

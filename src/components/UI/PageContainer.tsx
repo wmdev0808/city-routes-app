@@ -7,6 +7,8 @@ const PageContainer = styled.div`
   padding: 2rem;
   border-radius: 1rem;
   background-color: white;
+  font-family: "Inter";
+  font-weight: 500;
   @media (min-width: 768px) {
     width: 734px;
     padding: 5rem;

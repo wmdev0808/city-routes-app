@@ -5,6 +5,7 @@
 @import "@blueprintjs/icons/lib/css/blueprint-icons.css";
 @import "@blueprintjs/datetime/lib/css/blueprint-datetime.css";
 @import "@blueprintjs/datetime2/lib/css/blueprint-datetime2.css";
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap");
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
