@@ -29,9 +29,22 @@ const CityFormContainer = styled.div`
       display: flex;
       flex: 1;
       flex-direction: column;
+      .${Classes.INPUT} {
+        border-radius: 6px;
+      }
       .${Classes.FORM_HELPER_TEXT} {
+        color: red;
         text-align: left;
       }
+      .${Classes.INTENT_DANGER} {
+        .${Classes.INPUT} {
+          border: 1px solid red;
+        }
+        .${Classes.FORM_HELPER_TEXT} {
+          color: red;
+        }
+      }
+
       @media (min-width: 768px) {
         flex-direction: row;
       }
@@ -158,6 +171,7 @@ function CityForm(props: CityFormProps) {
           <Button
             className="btn-submit"
             disabled={!methods.formState.isValid}
+            large
             text="Submit"
             type="submit"
           />

@@ -35,6 +35,7 @@ const ContentRow = styled.div`
 
 const HighlightedText = styled.span`
   font-weight: bold;
+  color: #7786d2;
 `;
 
 function SearchResultsPage() {
@@ -84,7 +85,7 @@ function SearchResultsPage() {
           <ContentRows className="error-container">
             <ContentRow>{error.message}</ContentRow>
             <ContentRow>
-              <Button text="Back" onClick={handleClick} />
+              <Button large onClick={handleClick} text="Back" />
             </ContentRow>
           </ContentRows>
         </PageContainer>
@@ -116,7 +117,7 @@ function SearchResultsPage() {
           </ContentRow>
         </ContentRows>
         <ContentRow>
-          <Button text="Back" onClick={handleClick} />
+          <Button onClick={handleClick} large text="Back" />
         </ContentRow>
       </PageContainer>
     );

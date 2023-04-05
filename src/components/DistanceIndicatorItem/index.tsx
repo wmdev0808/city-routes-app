@@ -49,7 +49,11 @@ function DistanceIndicatorItem(props: DistanceIndicatorItemProps) {
       <ItemRow>
         <div className="second">
           <Popover2
-            content={<div>{props.item.distance} km</div>}
+            content={
+              <span style={{ color: "#7786d2", fontWeight: 500 }}>
+                {props.item.distance} km
+              </span>
+            }
             isOpen
             placement="left"
             popoverClassName={Classes.POPOVER2_CONTENT_SIZING}
