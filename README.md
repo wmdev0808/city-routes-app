@@ -8,6 +8,60 @@ This app will allow people to perform searches to know the distance of a route t
 
 - The app should consist of two pages: the search form (home page) and the search results.
 
+## Features:
+
+- Advanced custom UI components, **Async Select**, **Positive Numeric Input**
+- Support **Deep Linking**
+- Advanced Form features: Validations, Dynamic Fields, Interactions using both keyboard and mouse
+
+## Pages & Custom UI Components
+
+- **Search Form Page**
+
+  - ![Search Form](./public/screenshots/homepage-01.png)
+
+- **Async City Select**
+
+  - **Loading Skeleton**
+    ![Loading Skeleton](./public/screenshots/homepage-02.png)
+
+  - **Select an item using both mouse and keyboard**
+    ![Select an item ](./public/screenshots/homepage-03.png)
+
+  - **Add/Remove a city select control(Dynamic Fields Support)**
+    ![Add/remove a city select control as a dynamic field](./public/screenshots/homepage-04.png)
+
+  - **Error Handling**
+
+    - When a user type `"fail"`, the mock async API for fetching cities throws an error and the component shows the corresponding error mesasge.
+
+      ![Input: fail](./public/screenshots/homepage-06.png)
+
+    - When one of the selected cities is `"Dijon"`, the mock async API for calculating the distances throws an error and search result page shows the error.
+
+      ![Input: Dijon](./public/screenshots/homepage-05.png)
+      ![Search Result: Error](./public/screenshots/search-result-02.png)
+
+- **Positive Integer Input**
+
+  - Extends [Blueprint's Numeric input](https://blueprintjs.com/docs/#core/components/numeric-input) by adding the following features:
+
+    - Add `Increase/Decrease` button on the both sides.
+    - Only allows input of positive numbers.
+      <br /><br />
+      ![Positive Numeric Input](./public/screenshots/positive-numeric-input.png)
+
+- **Date Input**
+
+  ![Date Input](./public/screenshots/homepage-07.png)
+
+- **Search Results Page**
+
+  - **Loading Spinner while fetching API data**
+    ![Loading](./public/screenshots/search-result-01.png)
+  - **Haversine distance results**
+    ![Search Results](./public/screenshots/search-result-03.png)
+
 - **On the home page** there is a search form. The form consists of the following fields:
 
   1. **City of origin**: Required to fill. A searchable dropdown (combo box) with a list of cities. The list of cities should be requested and searched asynchronously with the loading indication.
