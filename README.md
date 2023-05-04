@@ -18,7 +18,7 @@ This app will allow people to perform searches to know the distance of a route t
 
 - **Search Form Page**
 
-  - ![Search Form](./public/screenshots/homepage-01.png)
+  ![Search Form](./public/screenshots/homepage-01.png)
 
 - **Async City Select**
 
