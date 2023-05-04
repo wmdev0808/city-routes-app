@@ -13,6 +13,7 @@ This app will allow people to perform searches to know the distance of a route t
 - Advanced custom UI components, **Async Select**, **Positive Numeric Input**
 - Support **Deep Linking**
 - Advanced Form features: Validations, Dynamic Fields, Interactions using both keyboard and mouse
+- [**Vite**](https://vitejs.dev/) project setup
 
 ## Pages & Custom UI Components
 
