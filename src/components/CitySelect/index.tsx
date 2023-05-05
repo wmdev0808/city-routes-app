@@ -26,7 +26,7 @@ function CitySelect(props: CitySelectProps) {
 
   function getCityItemProps(
     city: City,
-    { handleClick, handleFocus, modifiers, ref, query }: ItemRendererProps
+    { handleClick, handleFocus, modifiers, ref, query }: ItemRendererProps,
   ): MenuItem2Props & React.Attributes {
     return {
       active: modifiers.active,
@@ -67,7 +67,7 @@ function CitySelect(props: CitySelectProps) {
           ulRef={listProps.itemsParentRef}
         >
           {listProps.items.map((city, index) =>
-            listProps.renderItem(city, index)
+            listProps.renderItem(city, index),
           )}
         </Menu>
       );
@@ -95,7 +95,7 @@ function CitySelect(props: CitySelectProps) {
 
   async function handleQueryChange(
     query: string,
-    event?: React.ChangeEvent<HTMLInputElement>
+    event?: React.ChangeEvent<HTMLInputElement>,
   ) {
     setQuery(query);
 

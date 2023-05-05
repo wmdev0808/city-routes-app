@@ -67,7 +67,7 @@ function IntegerInput(props: IntegerInputProps) {
       const [numVal, strVal] = parseInteger(
         +props.value + direction,
         props.min,
-        props.max
+        props.max,
       );
 
       props.onChange(strVal);
@@ -77,7 +77,7 @@ function IntegerInput(props: IntegerInputProps) {
   function handleValueChange(
     _numVal: number,
     strVal: string,
-    inputElement: HTMLInputElement | null
+    inputElement: HTMLInputElement | null,
   ) {
     const [_, normalizedStrVal] = parseInteger(strVal, props.min, props.max);
 

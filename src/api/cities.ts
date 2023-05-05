@@ -57,7 +57,7 @@ export async function fetchCities(query: string = ""): Promise<City[]> {
   }
 
   return CITIES.filter(
-    (city) => city.name.toLowerCase().indexOf(normalizedQuery) >= 0
+    (city) => city.name.toLowerCase().indexOf(normalizedQuery) >= 0,
   );
 }
 
@@ -88,7 +88,7 @@ export async function calculateHaversineDistance(cities: City[]) {
       origin: cities[i],
       destination: cities[i + 1],
       distance: parseFloat(
-        (haversine(cities[i], cities[i + 1]) / 1000).toFixed(2)
+        (haversine(cities[i], cities[i + 1]) / 1000).toFixed(2),
       ),
     };
 

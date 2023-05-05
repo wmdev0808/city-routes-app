@@ -103,7 +103,7 @@ function CitySelectList() {
           if (cityError.type === "apiError") {
             return cityError.message;
           }
-        }
+        },
       );
     }
 
