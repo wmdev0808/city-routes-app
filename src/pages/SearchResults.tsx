@@ -4,7 +4,8 @@ import styled from "styled-components";
 import { Button, Spinner } from "@blueprintjs/core";
 import { format } from "date-fns";
 
-import { calculateHaversineDistance, Distance } from "../api/cities";
+import type { Distance } from "../api/cities";
+import { calculateHaversineDistance } from "../api/cities";
 import DistanceIndicatorItem from "../components/DistanceIndicatorItem";
 import useCitySearchParams from "../hooks/useCitySearchParams";
 import PageContainer from "../components/UI/PageContainer";
@@ -117,7 +118,7 @@ function SearchResultsPage() {
           </ContentRow>
         </ContentRows>
         <ContentRow>
-          <Button onClick={handleClick} large text="Back" />
+          <Button large onClick={handleClick} text="Back" />
         </ContentRow>
       </PageContainer>
     );

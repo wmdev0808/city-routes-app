@@ -1,17 +1,12 @@
 import { useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Button, Classes } from "@blueprintjs/core";
-import {
-  Controller,
-  FormProvider,
-  SubmitHandler,
-  useForm,
-  useWatch,
-} from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
+import { Controller, FormProvider, useForm, useWatch } from "react-hook-form";
 import styled from "styled-components";
 import { format } from "date-fns";
 
-import { City } from "../../api/cities";
+import type { City } from "../../api/cities";
 import CitySelectList from "../CitySelectList";
 import DateInput from "../DateInput";
 import IntegerInput from "../IntegerInput";
@@ -134,8 +129,8 @@ function CityForm(props: CityFormProps) {
             </CityFormLeft>
             <CityFormRight>
               <Controller
-                name="passengers"
                 control={methods.control}
+                name="passengers"
                 render={({ field: { onChange, value } }) => (
                   <IntegerInput
                     label="Passengers"
@@ -152,8 +147,8 @@ function CityForm(props: CityFormProps) {
                 }}
               />
               <Controller
-                name="date"
                 control={methods.control}
+                name="date"
                 render={({ field: { onChange, value } }) => (
                   <DateInput label="Date" onChange={onChange} value={value} />
                 )}

@@ -1,7 +1,7 @@
 import { Icon, IconSize } from "@blueprintjs/core";
 import { Classes, Popover2 } from "@blueprintjs/popover2";
 import styled from "styled-components";
-import { Distance } from "../../api/cities";
+import type { Distance } from "../../api/cities";
 
 const ItemContainer = styled.div`
   display: flex;

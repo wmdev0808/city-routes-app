@@ -9,7 +9,7 @@ import {
 import { useFormContext } from "react-hook-form";
 import styled from "styled-components";
 import { parseInteger } from "../../utils/parse";
-import { CityFormInputs } from "../CityForm";
+import type { CityFormInputs } from "../CityForm";
 import { useMemo } from "react";
 
 const IntegerInputContainer = styled.div`
@@ -42,8 +42,8 @@ function IntegerInput(props: IntegerInputProps) {
     if (isLeft) {
       return (
         <Button
-          aria-label="decrement"
           aria-controls={Utils.uniqueId("integerInput")}
+          aria-label="decrement"
           disabled={value == props.min}
           icon="minus"
           onClick={handleButtonClick(IncredmentDirection.DOWN)}
@@ -53,8 +53,8 @@ function IntegerInput(props: IntegerInputProps) {
 
     return (
       <Button
-        aria-label="increment"
         aria-controls={Utils.uniqueId("integerInput")}
+        aria-label="increment"
         disabled={value == props.max}
         icon="plus"
         onClick={handleButtonClick(IncredmentDirection.UP)}
@@ -63,8 +63,9 @@ function IntegerInput(props: IntegerInputProps) {
   }
 
   function handleButtonClick(direction: IncredmentDirection) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     return (_event: React.MouseEvent<HTMLElement, MouseEvent>) => {
-      const [numVal, strVal] = parseInteger(
+      const [, strVal] = parseInteger(
         +props.value + direction,
         props.min,
         props.max,
@@ -77,9 +78,10 @@ function IntegerInput(props: IntegerInputProps) {
   function handleValueChange(
     _numVal: number,
     strVal: string,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     inputElement: HTMLInputElement | null,
   ) {
-    const [_, normalizedStrVal] = parseInteger(strVal, props.min, props.max);
+    const [, normalizedStrVal] = parseInteger(strVal, props.min, props.max);
 
     if (props.onChange) {
       props.onChange(normalizedStrVal);
@@ -101,9 +103,9 @@ function IntegerInput(props: IntegerInputProps) {
   return (
     <IntegerInputContainer>
       <FormGroup
-        label={props.label}
         helperText={errorText}
         intent={errors.passengers ? Intent.DANGER : Intent.NONE}
+        label={props.label}
         style={{ alignItems: "flex-start" }}
       >
         <NumericInput

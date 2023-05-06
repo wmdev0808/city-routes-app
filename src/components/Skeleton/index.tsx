@@ -9,9 +9,9 @@ const StyledMenuItem2 = styled(MenuItem2)`
 function Skeleton() {
   return (
     <Menu>
-      <StyledMenuItem2 text="City" className={Classes.SKELETON} />
-      <StyledMenuItem2 text="City" className={Classes.SKELETON} />
-      <StyledMenuItem2 text="City" className={Classes.SKELETON} />
+      <StyledMenuItem2 className={Classes.SKELETON} text="City" />
+      <StyledMenuItem2 className={Classes.SKELETON} text="City" />
+      <StyledMenuItem2 className={Classes.SKELETON} text="City" />
     </Menu>
   );
 }
