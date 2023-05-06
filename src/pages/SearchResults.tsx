@@ -52,7 +52,7 @@ function SearchResultsPage() {
 
       try {
         const cityDistances = await calculateHaversineDistance(
-          citySearchParams.cities
+          citySearchParams.cities,
         );
 
         setDistances(cityDistances);

@@ -1,7 +1,7 @@
 export function parseInteger(
   input: string | number,
   min?: number,
-  max?: number
+  max?: number,
 ): [number, string] {
   const strInput = input.toString();
   const match = strInput.match(/^(0|-?[1-9]\d*)/g);

@@ -6,7 +6,7 @@ import { City } from "../api/cities";
 
 function useCitySearchParams(): [
   CityFormInputs,
-  (cityFormInputs: CityFormInputs) => void
+  (cityFormInputs: CityFormInputs) => void,
 ] {
   const [searchParams, setSearchParams] = useSearchParams();
 
