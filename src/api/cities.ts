@@ -49,7 +49,7 @@ export const CITIES: City[] = [
   { name: "Aix-en-Provence", latitude: 43.529742, longitude: 5.447427 },
 ];
 
-export async function fetchCities(query: string = ""): Promise<City[]> {
+export async function fetchCities(query = ""): Promise<City[]> {
   const normalizedQuery = query.toLowerCase();
   await sleep(1000);
   if (normalizedQuery === "fail") {

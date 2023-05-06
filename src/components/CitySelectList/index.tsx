@@ -1,17 +1,12 @@
 import { useMemo } from "react";
 import { Button, Classes, FormGroup, Intent } from "@blueprintjs/core";
 import styled from "styled-components";
-import {
-  Controller,
-  FieldError,
-  FieldPath,
-  useFieldArray,
-  useFormContext,
-} from "react-hook-form";
+import type { FieldError, FieldPath } from "react-hook-form";
+import { Controller, useFieldArray, useFormContext } from "react-hook-form";
 
-import { City } from "../../api/cities";
+import type { City } from "../../api/cities";
 import CitySelect from "../CitySelect";
-import { CityFormInputs } from "../CityForm";
+import type { CityFormInputs } from "../CityForm";
 
 /**
  * Validation
@@ -19,7 +14,11 @@ import { CityFormInputs } from "../CityForm";
 
 // Check emptiness
 function checkEmptiness(value: City | null) {
-  return Boolean(value) && Object.keys(value!).length > 0;
+  if (value) {
+    return Boolean(value) && Object.keys(value).length > 0;
+  }
+
+  return false;
 }
 
 const CitySelectListContainer = styled.div`
@@ -64,30 +63,29 @@ function AddDestinationButton({
 }
 
 function RemoveDestinationButton({
-  onClick,
   hidden,
+  onClick,
 }: {
   hidden: boolean;
   onClick?: (event: React.MouseEvent<HTMLElement>) => void;
 }) {
   return (
     <Button
+      className={`btn-remove-destination ${hidden ? "hidden" : ""}`}
       icon="delete"
       minimal
       onClick={onClick}
-      className={`btn-remove-destination ${hidden ? "hidden" : ""}`}
     />
   );
 }
 
 function CitySelectList() {
   const {
-    clearErrors,
     control,
     formState: { errors },
     setError,
   } = useFormContext<CityFormInputs>();
-  const { fields, append, remove } = useFieldArray({ control, name: "cities" });
+  const { append, fields, remove } = useFieldArray({ control, name: "cities" });
 
   const errorTexts = useMemo(() => {
     if (errors.cities) {

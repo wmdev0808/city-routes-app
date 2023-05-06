@@ -1,14 +1,17 @@
 import { useCallback, useState } from "react";
 
-import { Button, Intent, Menu } from "@blueprintjs/core";
-import { Classes, MenuItem2, MenuItem2Props } from "@blueprintjs/popover2";
-import {
+import type { Intent } from "@blueprintjs/core";
+import { Button, Menu } from "@blueprintjs/core";
+import type { MenuItem2Props } from "@blueprintjs/popover2";
+import { Classes, MenuItem2 } from "@blueprintjs/popover2";
+import type {
   ItemListRendererProps,
   ItemRendererProps,
-  Suggest2,
 } from "@blueprintjs/select";
+import { Suggest2 } from "@blueprintjs/select";
 
-import { City, fetchCities } from "../../api/cities";
+import type { City } from "../../api/cities";
+import { fetchCities } from "../../api/cities";
 import Skeleton from "../Skeleton";
 
 export interface CitySelectProps {
@@ -26,7 +29,8 @@ function CitySelect(props: CitySelectProps) {
 
   function getCityItemProps(
     city: City,
-    { handleClick, handleFocus, modifiers, ref, query }: ItemRendererProps,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    { handleClick, handleFocus, modifiers, query, ref }: ItemRendererProps,
   ): MenuItem2Props & React.Attributes {
     return {
       active: modifiers.active,
@@ -79,11 +83,7 @@ function CitySelect(props: CitySelectProps) {
         {...listProps.menuProps}
         ulRef={listProps.itemsParentRef}
       >
-        <MenuItem2
-          disabled={true}
-          text="No results."
-          roleStructure="listoption"
-        />
+        <MenuItem2 disabled roleStructure="listoption" text="No results." />
       </Menu>
     );
   }
@@ -95,6 +95,7 @@ function CitySelect(props: CitySelectProps) {
 
   async function handleQueryChange(
     query: string,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     event?: React.ChangeEvent<HTMLInputElement>,
   ) {
     setQuery(query);
@@ -156,9 +157,9 @@ function CitySelect(props: CitySelectProps) {
         rightElement: renderInputGroupRight(),
       }}
       inputValueRenderer={renderInputValue}
-      items={items}
       itemListRenderer={renderCityList}
       itemRenderer={renderCity}
+      items={items}
       onItemSelect={handleItemSelect}
       onQueryChange={handleQueryChange}
       popoverProps={{

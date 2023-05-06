@@ -1,8 +1,8 @@
 import { useSearchParams } from "react-router-dom";
 import { format } from "date-fns";
 
-import { CityFormInputs } from "../components/CityForm";
-import { City } from "../api/cities";
+import type { CityFormInputs } from "../components/CityForm";
+import type { City } from "../api/cities";
 
 function useCitySearchParams(): [
   CityFormInputs,

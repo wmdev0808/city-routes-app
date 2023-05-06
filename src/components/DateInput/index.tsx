@@ -4,7 +4,7 @@ import { format, parse } from "date-fns";
 import { Classes, FormGroup, Intent } from "@blueprintjs/core";
 import { useFormContext } from "react-hook-form";
 
-import { CityFormInputs } from "../CityForm";
+import type { CityFormInputs } from "../CityForm";
 import { useMemo } from "react";
 
 export function formatDate(date: Date) {
@@ -55,8 +55,8 @@ function DateInput(props: DateInputProps) {
         style={{ alignItems: "flex-start" }}
       >
         <DateInput2
-          inputProps={{ intent: errors.date ? Intent.DANGER : Intent.NONE }}
           formatDate={formatDate}
+          inputProps={{ intent: errors.date ? Intent.DANGER : Intent.NONE }}
           onChange={props.onChange}
           parseDate={parseDate}
           placeholder="MM/dd/yyyy"
