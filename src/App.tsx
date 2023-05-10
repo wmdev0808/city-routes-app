@@ -6,7 +6,7 @@ import ErrorPage from "./pages/Error";
 import HomePage from "./pages/Home";
 import SearchResultsPage from "./pages/SearchResults";
 
-const router = createBrowserRouter([
+export const router = createBrowserRouter([
   {
     path: "/",
     element: <DefaultLayout />,
