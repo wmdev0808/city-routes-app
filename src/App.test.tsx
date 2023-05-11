@@ -67,6 +67,6 @@ describe("App", () => {
     render(<RouterProvider router={router} />);
 
     await waitFor(() => screen.getByRole("heading"));
-    expect(screen.getByRole("heading")).toHaveTextContent("An error occurred!");
+    expect(screen.getByRole("heading")).toHaveTextContent("Oops! 404");
   });
 });
