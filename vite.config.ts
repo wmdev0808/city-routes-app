@@ -11,6 +11,9 @@ export default defineConfig({
       "~": "./src",
     },
   },
+  server: {
+    host: true,
+  },
   test: {
     globals: true,
     environment: "jsdom",
