@@ -1,5 +1,4 @@
 import { RouterProvider, createMemoryRouter } from "react-router-dom";
-import { format } from "date-fns";
 import { fireEvent, render, screen, userEvent } from "../../utils/test-utils";
 
 import type { CityFormProps } from ".";
