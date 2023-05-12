@@ -13,7 +13,9 @@
     "prepare": "husky install",
     "test:coverage": "vitest run --coverage",
     "test": "vitest",
-    "test:ui": "vitest --ui"
+    "test:ui": "vitest --ui",
+    "e2e": "cypress run",
+    "e2e:watch": "cypress open"
   },
   "dependencies": {
     "@blueprintjs/core": "^4.17.7",
