@@ -1,24 +1,7 @@
 import { RouterProvider, createMemoryRouter } from "react-router-dom";
-import DefaultLayout from "./layouts/Default";
-import ErrorPage from "./pages/Error";
-import HomePage from "./pages/Home";
-import SearchResultsPage from "./pages/SearchResults";
 import { render, screen, waitFor } from "./utils/test-utils";
 
-const routes = [
-  {
-    path: "/",
-    element: <DefaultLayout />,
-    errorElement: <ErrorPage />,
-    children: [
-      { index: true, element: <HomePage /> },
-      {
-        path: "search-results",
-        element: <SearchResultsPage />,
-      },
-    ],
-  },
-];
+import { routes } from "./App";
 
 describe("App", () => {
   it("should render homepage", async () => {

@@ -84,7 +84,7 @@ export interface CityFormInputs {
   date: string;
 }
 
-interface CityFormProps {
+export interface CityFormProps {
   cities?: City[];
   passengers?: string;
   date?: string;

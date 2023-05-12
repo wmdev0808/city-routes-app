@@ -1,3 +1,4 @@
+import type { RouteObject } from "react-router-dom";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import "./App.css";
@@ -6,7 +7,7 @@ import ErrorPage from "./pages/Error";
 import HomePage from "./pages/Home";
 import SearchResultsPage from "./pages/SearchResults";
 
-export const router = createBrowserRouter([
+export const routes: RouteObject[] = [
   {
     path: "/",
     element: <DefaultLayout />,
@@ -19,7 +20,9 @@ export const router = createBrowserRouter([
       },
     ],
   },
-]);
+];
+
+export const router = createBrowserRouter(routes);
 
 function App() {
   return <RouterProvider router={router} />;
