@@ -30,7 +30,7 @@ const ItemRow = styled.div`
   }
 `;
 
-interface DistanceIndicatorItemProps {
+export interface DistanceIndicatorItemProps {
   item: Distance;
   isFirst?: boolean;
   isLast?: boolean;
