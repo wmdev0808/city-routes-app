@@ -22,6 +22,7 @@ lerna-debug.log*
 
 cypress/videos
 cypress/screenshots
+cypress/downloads
 .nyc_output
 
 # Ignore env local files - https://create-react-app.dev/docs/adding-custom-environment-variables/#what-other-env-files-can-be-used
