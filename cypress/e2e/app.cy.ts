@@ -128,6 +128,16 @@ describe("App", () => {
       });
       cy.contains(".bp4-menu-item", "No results").click();
     });
+
+    it("should show validation error if `fail` is entered", () => {
+      cy.get("@cityOfOrigin").within(() => {
+        cy.get("input[role='combobox']").type("fail");
+      });
+      cy.contains(
+        ".bp4-form-helper-text",
+        "Oops! Failed to search with this keyword.",
+      );
+    });
   });
 
   context("CitySelectList", () => {
