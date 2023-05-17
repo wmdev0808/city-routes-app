@@ -262,4 +262,96 @@ describe("App", () => {
       });
     });
   });
+
+  it("should navigate to search results page when the form is submitted", () => {
+    const inputCityParams = {
+      cities: [
+        {
+          name: "Paris",
+          latitude: 48.856614,
+          longitude: 2.352222,
+        },
+        { latitude: 43.610769, longitude: 3.876716, name: "Montpellier" },
+      ],
+      passengers: 1,
+      date: format(new Date(), "yyyy-MM-dd"),
+    };
+
+    const inputSearchParams = `cities=%5B%7B%22name%22%3A%22Paris%22%2C%22latitude%22%3A48.856614%2C%22longitude%22%3A2.352222%7D%2C%7B%22name%22%3A%22Montpellier%22%2C%22latitude%22%3A43.610769%2C%22longitude%22%3A3.876716%7D%5D&passengers=1&date=${inputCityParams.date}`;
+    const searchResultsUrl = `/search-results?${inputSearchParams}`;
+    const regExForDistance = /[+-]?(\d*\.\d+|\d+\.\d*|\d+) km/gm;
+
+    cy.visit(`/?${inputSearchParams}`);
+
+    // The form should be valid to be submitted
+    cy.get("@cityOfOrigin").within(() => {
+      cy.get("input").invoke("val").should("not.be.empty");
+    });
+    cy.get("@cityOfDestination").within(() => {
+      cy.get("input").invoke("val").should("not.be.empty");
+    });
+    cy.get("@passengers").within(() => {
+      cy.get("input").invoke("val").should("not.be.empty");
+    });
+    cy.get("@date").within(() => {
+      cy.get("input").invoke("val").should("not.be.empty");
+    });
+
+    cy.get("form.city-form").within(() => {
+      cy.get(".bp4-form-helper-text").should("not.exist");
+      cy.contains("button", "Submit")
+        .as("submitButton")
+        .should("not.be.disabled");
+
+      // Submit the form
+      cy.get("@submitButton").click();
+    });
+
+    // Navigate to search results page
+    cy.url().should("include", searchResultsUrl);
+    cy.get(".bp4-spinner").should("not.exist");
+
+    // Shows infos
+    cy.contains(inputCityParams.cities[0].name).should(
+      "have.class",
+      "city-name",
+    );
+    cy.contains(inputCityParams.cities[1].name).should(
+      "have.class",
+      "city-name",
+    );
+    cy.get(".bp4-popover2-content").contains(regExForDistance);
+    cy.get("main").within(() => {
+      cy.contains(regExForDistance);
+      cy.contains(`${inputCityParams.passengers} passengers`);
+      cy.contains(`${format(new Date(inputCityParams.date), "MMM dd, yyyy")}`);
+      cy.contains("button", "Back").as("backButton").should("not.be.disabled");
+      cy.get("@backButton").click();
+    });
+  });
+
+  it("should navigate to the search results page, but render , if `Dijon` city is selected on home page", () => {
+    const inputCityParams = {
+      cities: [
+        {
+          name: "Paris",
+          latitude: 48.856614,
+          longitude: 2.352222,
+        },
+        {
+          name: "Dijon",
+          latitude: 47.322047,
+          longitude: 5.04148,
+        },
+      ],
+      passengers: 1,
+      date: format(new Date(), "yyyy-MM-dd"),
+    };
+    const inputUrl = `/?cities=%5B%7B%22name%22%3A%22Paris%22%2C%22latitude%22%3A48.856614%2C%22longitude%22%3A2.352222%7D%2C%7B%22name%22%3A%22Dijon%22%2C%22latitude%22%3A47.322047%2C%22longitude%22%3A5.04148%7D%5D&passengers=1&date=${inputCityParams.date}`;
+    cy.visit(inputUrl);
+    cy.contains("button", "Submit").click();
+    cy.url().should("include", "/search-results");
+    cy.contains("Oops! Something went wrong!").should("be.visible");
+    cy.contains("button", "Back").should("not.be.disabled");
+  });
 });
