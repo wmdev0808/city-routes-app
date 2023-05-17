@@ -35,3 +35,45 @@
 //     }
 //   }
 // }
+
+/**
+ * Assert a search param
+ */
+Cypress.Commands.add("checkSearchParam", (key: string, expected: string) => {
+  cy.location().then((loc) => {
+    const paramsString = loc.search.slice(1);
+    const searchParams = new URLSearchParams(paramsString);
+
+    cy.wrap(searchParams.has(key)).should("be.true");
+    cy.wrap(searchParams.get(key)).should("deep.equal", expected);
+  });
+});
+
+/**
+ * Select a city
+ */
+Cypress.Commands.add(
+  "selectCity",
+  (containerSelector: string, query: string, cityName: string) => {
+    cy.get(containerSelector).find("input[role='combobox']").type(query);
+    cy.get("ul[role='listbox'] > li[role='option']").contains(cityName); // Wait until the cityName is visible
+    cy.get("ul[role='listbox'] > li[role='option']")
+      .as("cities")
+      .should("have.length.gt", 0);
+    cy.get("@cities").contains(cityName).click();
+    cy.get("ul[role='listbox'] > li[role='option']")
+      .contains(cityName)
+      .should("not.be.visible");
+    cy.get(containerSelector).within(() => {
+      cy.get(".bp4-input-group").should("not.have.class", "bp4-intent-danger");
+      cy.get("input").should("have.value", cityName);
+      cy.get(".bp4-input-group button")
+        .find("span[icon='cross']")
+        .should("exist");
+      cy.contains(
+        ".bp4-form-helper-text",
+        "You must choose the city of origin",
+      ).should("not.exist");
+    });
+  },
+);
