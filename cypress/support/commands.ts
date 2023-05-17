@@ -61,6 +61,9 @@ Cypress.Commands.add(
       .as("cities")
       .should("have.length.gt", 0);
     cy.get("@cities").contains(cityName).click();
+    cy.get("ul[role='listbox'] > li[role='option']")
+      .contains(cityName)
+      .should("not.be.visible");
     cy.get(containerSelector).within(() => {
       cy.get(".bp4-input-group").should("not.have.class", "bp4-intent-danger");
       cy.get("input").should("have.value", cityName);

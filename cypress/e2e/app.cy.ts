@@ -9,6 +9,7 @@ describe("App", () => {
     cy.get(".bp4-form-group").eq(3).as("date");
     const values = { today: format(new Date(), "MM/dd/yyyy") };
     cy.wrap(values).its("today").as("today");
+    cy.get("@date").find("input").invoke("val").as("currentDate");
   });
 
   // it("passes", () => {
@@ -159,6 +160,106 @@ describe("App", () => {
           cy.get(".btn-remove-destination").last().click();
           cy.get("input[role='combobox']").should("have.length", 2);
         });
+    });
+  });
+
+  context("Passengers", () => {
+    it("should have buttons to increase/decrease its value", () => {
+      cy.get("@passengers").within(() => {
+        cy.get("input[role='spinbutton']").should("have.value", 1);
+        cy.get("button[aria-label='increment']").click();
+        cy.get("input[role='spinbutton']").should("have.value", 2);
+        cy.get("button[aria-label='decrement']").click();
+        cy.get("input[role='spinbutton']").should("have.value", 1);
+      });
+    });
+
+    it("should show error if the value is cleared", () => {
+      cy.get("@passengers").within(() => {
+        cy.get("input[role='spinbutton']").clear();
+        cy.get("input[role='spinbutton']").should("not.have.value");
+        cy.get("button[aria-label='decrement']").should("be.disabled");
+        cy.get(".bp4-input-group").should("have.class", "bp4-intent-danger");
+        cy.contains(".bp4-form-helper-text", "Field is required.");
+      });
+    });
+
+    it("should only allow positive integers to be entered", () => {
+      cy.get("@passengers").within(() => {
+        cy.get("input[role='spinbutton']").clear();
+        cy.get("input[role='spinbutton']").type("1");
+        cy.get("input[role='spinbutton']").should("have.value", 1);
+        cy.get("input[role='spinbutton']").clear();
+        cy.get("input[role='spinbutton']").type("1.1");
+        cy.get("input[role='spinbutton']").should("have.value", 11);
+        cy.get("input[role='spinbutton']").clear();
+        cy.get("input[role='spinbutton']").type("-1");
+        cy.get("input[role='spinbutton']").should("have.value", 1);
+        cy.get("input[role='spinbutton']").clear();
+        cy.get("input[role='spinbutton']").type("-1.1");
+        cy.get("input[role='spinbutton']").should("have.value", 11);
+      });
+    });
+
+    it("should show error if zero is entered", () => {
+      cy.get("@passengers").within(() => {
+        cy.get("input[role='spinbutton']").clear();
+        cy.get("input[role='spinbutton']").type("0");
+        cy.get("input[role='spinbutton']").should("have.value", 0);
+        cy.get(".bp4-input-group").should("have.class", "bp4-intent-danger");
+        cy.contains(".bp4-form-helper-text", "Select passengers");
+      });
+    });
+  });
+
+  context("Date", () => {
+    it("should be able to change date value using a date picker", () => {
+      cy.get("@date").within(() => {
+        cy.get("input").click();
+      });
+      cy.get(".bp4-datepicker").should("be.visible");
+
+      cy.get("@currentDate").then(($currentDate) => {
+        const originalDate = $currentDate;
+        cy.get(".DayPicker-Day:not(.DayPicker-Day--selected)").first().click();
+        cy.get("@date")
+          .find("input")
+          .invoke("val")
+          .should("not.equal", originalDate);
+      });
+    });
+
+    it("should show error if the field is cleared", () => {
+      cy.get("@date").within(() => {
+        cy.get("input").clear();
+        cy.get(".bp4-input-group").should("have.class", "bp4-intent-danger");
+        cy.get(".bp4-form-helper-text").contains("Field is required.");
+      });
+    });
+
+    it("should show error if user change a earlier date than today", () => {
+      cy.get("@date").within(() => {
+        cy.get("input").click();
+      });
+      cy.get(".bp4-datepicker").should("be.visible");
+
+      cy.get("@today").then(($today) => {
+        cy.get(".DayPicker-Day:not(.DayPicker-Day--selected)").first().click();
+        cy.get("@date")
+          .find("input")
+          .invoke("val")
+          .then(($selected) => {
+            cy.wrap(new Date($selected as string).getTime()).should(
+              "be.lt",
+              new Date($today as unknown as string).getTime(),
+            );
+          });
+
+        cy.get("@date").within(() => {
+          cy.get(".bp4-input-group").should("have.class", "bp4-intent-danger");
+          cy.get(".bp4-form-helper-text").contains("Select a future date");
+        });
+      });
     });
   });
 });
