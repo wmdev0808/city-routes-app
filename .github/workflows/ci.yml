@@ -39,3 +39,20 @@ jobs:
 
       - name: Run unit tests
         run: yarn test
+
+  cypress-run:
+    name: Run E2E tests using Cypress
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Run E2E tests
+        # Install Yarn dependencies, cache them correctly and run all Cypress tests
+        # Cypress v10 and higer, Yarn 1.x
+        uses: cypress-io/github-action@v5
+        with:
+          # Custom install command
+          install-command: yarn --frozen-lockfile --silent
+          start: yarn dev
+          wait-on: "http://localhost:5173"
