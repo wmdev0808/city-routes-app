@@ -1,4 +1,6 @@
-# [City Route App](https://city-routes-app.vercel.app/) &middot; ![CI](https://github.com/wmdev0808/city-routes-app/actions/workflows/ci.yml/badge.svg) ![CD - Preview](https://github.com/wmdev0808/city-routes-app/actions/workflows/preview.yml/badge.svg) ![CD - Production](https://github.com/wmdev0808/city-routes-app/actions/workflows/production.yml/badge.svg)
+# [City Route App](https://city-routes-app.vercel.app/)
+
+![CI](https://github.com/wmdev0808/city-routes-app/actions/workflows/ci.yml/badge.svg) ![CD - Preview](https://github.com/wmdev0808/city-routes-app/actions/workflows/preview.yml/badge.svg) ![CD - Production](https://github.com/wmdev0808/city-routes-app/actions/workflows/production.yml/badge.svg)
 
 ## Summary
 
@@ -12,7 +14,7 @@ This app will allow people to perform searches to know the distance of a route t
 
 - Fully support for [**TDD and CI/CD**](#the-application-is-built-in-tdd-way-and-fully-support-for-cicd)
 - Advanced custom UI components, [**Async Select, Positive Numeric Input**](#pages--custom-ui-components)
-- Support [**Deep Linking**](#the-application-fully-support-for-deep-linking)
+- Support for [**Deep Linking**](#the-application-fully-support-for-deep-linking)
 - Advanced Form features: Validations, Dynamic Fields, Interactions using both keyboard and mouse
 - [**Vite**](https://vitejs.dev/) project setup
 
