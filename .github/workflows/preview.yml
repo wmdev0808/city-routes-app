@@ -5,7 +5,7 @@ env:
 on:
   push:
     branches-ignore:
-      - main
+      - master
 jobs:
   Call-CI:
     uses: ./.github/workflows/ci.yml
