@@ -1,4 +1,4 @@
-# City Route App
+# [City Route App](https://city-routes-app.vercel.app/) &middot; ![CI](https://github.com/wmdev0808/city-routes-app/actions/workflows/ci.yml/badge.svg) ![CD - Preview](https://github.com/wmdev0808/city-routes-app/actions/workflows/preview.yml/badge.svg) ![CD - Production](https://github.com/wmdev0808/city-routes-app/actions/workflows/production.yml/badge.svg)
 
 ## Summary
 
