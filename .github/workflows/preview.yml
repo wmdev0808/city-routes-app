@@ -7,12 +7,12 @@ on:
     branches-ignore:
       - main
 jobs:
-  # Call-CI:
-  #   uses: ./.github/workflows/ci.yml
-  #   secrets: inherit
+  Call-CI:
+    uses: ./.github/workflows/ci.yml
+    secrets: inherit
 
   Deploy-Preview:
-    # needs: Call-CI
+    needs: Call-CI
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
