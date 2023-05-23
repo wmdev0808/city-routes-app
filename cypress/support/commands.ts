@@ -77,3 +77,5 @@ Cypress.Commands.add(
     });
   },
 );
+
+export {};
