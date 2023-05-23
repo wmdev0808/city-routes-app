@@ -3,7 +3,6 @@ name: CI(Unit/E2E Test)
 on:
   workflow_call:
   workflow_dispatch:
-  push:
 
 jobs:
   unit-test:

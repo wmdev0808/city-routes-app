@@ -39,3 +39,4 @@ cypress/downloads
 *.sln
 *.sw?
 
+.vercel
