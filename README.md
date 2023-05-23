@@ -1,4 +1,4 @@
-# City Route App
+# [City Route App](https://city-routes-app.vercel.app/) &middot; ![CI](https://github.com/wmdev0808/city-routes-app/actions/workflows/ci.yml/badge.svg) ![CD - Preview](https://github.com/wmdev0808/city-routes-app/actions/workflows/preview.yml/badge.svg) ![CD - Production](https://github.com/wmdev0808/city-routes-app/actions/workflows/production.yml/badge.svg)
 
 ## Summary
 
@@ -10,8 +10,9 @@ This app will allow people to perform searches to know the distance of a route t
 
 ## Features:
 
-- Advanced custom UI components, **Async Select**, **Positive Numeric Input**
-- Support **Deep Linking**
+- Fully support for [**TDD and CI/CD**](#the-application-is-built-in-tdd-way-and-fully-support-for-cicd)
+- Advanced custom UI components, [**Async Select, Positive Numeric Input**](#pages--custom-ui-components)
+- Support [**Deep Linking**](#the-application-fully-support-for-deep-linking)
 - Advanced Form features: Validations, Dynamic Fields, Interactions using both keyboard and mouse
 - [**Vite**](https://vitejs.dev/) project setup
 
@@ -85,25 +86,44 @@ This app will allow people to perform searches to know the distance of a route t
 
 ## Technical Specification
 
-- The application is implemented as a SPA (Single Page Application) using **React** and **TypeScript**.
+### The application is built in **TDD** way and fully support for **CI/CD**
 
-  - [**Blueprint**](https://blueprintjs.com/), a React-based UI toolkit for the web is used to speed up the development and app quality.
-  - [**React Hook Form**](https://react-hook-form.com/) is used for form state management and validation.
+- **Unit Testing**
 
-- To implement a `cities` database, I hardcoded the list of cities and simulate the delay of requesting the cities.<br />
-  You can find an example list of cities in the [Appendix A](#appendix-a).<br/>
+  - [**Vitest**](https://vitest.dev/)
+  - [**React Testing Library**](https://testing-library.com/docs/react-testing-library/intro/)
 
-  The fake backend has `two endpoints(functions)`.
+- **End-to-End Testing**
 
-  - The first endpoint receives a `keyword` and returns `a list of cities` that match the keyword.
+  - [**Cypress**](https://www.cypress.io/)
 
-  - The second endpoint receives a `list of cities` and calculates the `distances`.
+- **CI/CD**
+  - [GitHub Actions](https://github.com/features/actions)
 
-  - When a user attempts to find cities using the phrase `“fail”` (case-insensitive), the mocked API fail to return results to demonstrate the error handling abilities of the UI.
+### The application fully support for Deep-Linking
 
-  - To implement the distance calculation, I used [**Haversine distance formula**](https://en.wikipedia.org/wiki/Haversine_formula) and simulate the delay of the calculation.
+- [**A Custom Hook**](/src/hooks/useCitySearchParams.ts) is used for enabling **deep-linking** across the pages
 
-  - When `“Dijon”` city is involved, the distance calculation fails to demonstrate the error handling abilities of the UI.
+### The application is implemented as a SPA (Single Page Application) using **React** and **TypeScript**.
+
+- [**Blueprint**](https://blueprintjs.com/), a React-based UI toolkit for the web is used to speed up the development and app quality.
+- [**React Hook Form**](https://react-hook-form.com/) is used for form state management and validation.
+
+### To implement a `cities` database, I hardcoded the list of cities and simulate the delay of requesting the cities.<br />
+
+You can find an example list of cities in the [Appendix A](#appendix-a).<br/>
+
+The fake backend has `two endpoints(functions)`.
+
+- The first endpoint receives a `keyword` and returns `a list of cities` that match the keyword.
+
+- The second endpoint receives a `list of cities` and calculates the `distances`.
+
+- When a user attempts to find cities using the phrase `“fail”` (case-insensitive), the mocked API fail to return results to demonstrate the error handling abilities of the UI.
+
+- To implement the distance calculation, I used [**Haversine distance formula**](https://en.wikipedia.org/wiki/Haversine_formula) and simulate the delay of the calculation.
+
+- When `“Dijon”` city is involved, the distance calculation fails to demonstrate the error handling abilities of the UI.
 
 ## Appendix A
 
